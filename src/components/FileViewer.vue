@@ -1,8 +1,12 @@
 <script lang="ts" setup>
 import { ref, watch, nextTick } from 'vue'
-import { readFileTypeFromBlob } from './file-type.ts'
+import { readFileTypeFromBlob } from './file-type'
 import { renderAsync } from 'docx-preview'
 import { usePDF, VuePDF } from '@tato30/vue-pdf'
+
+defineOptions({
+  name: 'FileViewer'
+})
 
 const Image_Type = ['png', 'jpg', 'webp', 'bmp', 'gif', 'svg', 'ico']
 const Pdf_Type = ['pdf']

@@ -11,6 +11,8 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
   "keywords": [
     "docx",
     "pdf",

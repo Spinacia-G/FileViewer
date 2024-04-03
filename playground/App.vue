@@ -12,7 +12,9 @@ import file10 from '../src/assets/files/Rosa_sulfurea_001.JPG?url'
 import file11 from '../src/assets/files/what.zip?url'
 import file12 from '../src/assets/files/ZIP (file format) - Wikipedia.pdf?url'
 import { ref } from 'vue'
-import FileViewer from '../src/components/FileViewer.vue'
+
+import { FileViewer } from '../dist/index.js'
+import '../dist/style.css'
 
 const fileList = [
   file1,
@@ -52,7 +54,7 @@ const clearFile = () => {
       <button @click="clearFile">clear file</button>
     </div>
     <p>{{ url }}</p>
-    <file-viewer :res="sourceData" class="viewer-container" />
+    <FileViewer :res="sourceData" class="viewer-container" />
   </div>
 </template>
 

@@ -6,7 +6,13 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: tag => ['file-viewer'].includes(tag)
+        }
+      }
+    }),
     nodePolyfills({
       protocolImports: true
     })
@@ -15,7 +21,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, './src/index.ts'),
       name: 'vue3-file-viewer',
-      fileName: 'vue3-file-viewer'
+      fileName: 'index'
     },
     rollupOptions: {
       external: ['vue'],

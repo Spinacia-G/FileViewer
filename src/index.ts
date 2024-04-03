@@ -1,10 +1,10 @@
-import FileViewer from './components/FileViewer.vue'
-import type { Plugin } from 'vue'
+import FileViewer from './components'
 
-export const FileViewerPlugin: Plugin = {
-  install(Vue) {
-    Vue.component(FileViewer.name, FileViewer)
+export * from './components'
+import { App } from 'vue'
+
+export default {
+  install: (app: App) => {
+    app.use(FileViewer)
   }
 }
-
-export default FileViewerPlugin
