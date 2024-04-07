@@ -13,8 +13,9 @@ import file11 from '../src/assets/files/what.zip?url'
 import file12 from '../src/assets/files/ZIP (file format) - Wikipedia.pdf?url'
 import { ref } from 'vue'
 
-import { FileViewer } from '../dist/index.js'
-import '../dist/style.css'
+// import { FileViewer } from '../dist/index.js'
+// import '../dist/style.css'
+import FileViewer from '../src/components/FileViewer.vue'
 
 const fileList = [
   file1,
@@ -36,7 +37,8 @@ const sourceData = ref()
 
 const reloadFile = async () => {
   url.value = fileList[Math.floor(Math.random() * fileList.length)]
-  fetch(url.value)
+  // fetch(url.value)
+  fetch(file5)
     .then((res: Response) => {
       sourceData.value = res
     })

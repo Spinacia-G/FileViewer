@@ -57,7 +57,7 @@ const loadFile = async () => {
 
 - [type check](https://github.com/sindresorhus/file-type)
 - [docx viewer](https://www.npmjs.com/package/docx-preview)
-- [pdf viewer](https://github.com/TaTo30/vue-pdf)
+- [pdfjs-dist](https://github.com/mozilla/pdf.js)
 
 ## Supported file types
 
