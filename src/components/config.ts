@@ -1,0 +1,5 @@
+export const Image_Type = ['png', 'jpg', 'webp', 'bmp', 'gif', 'svg', 'ico']
+export const Pdf_Type = ['pdf']
+export const Word_Type = ['docx']
+export const Excel_Type = ['xlsx', 'csv']
+export const Text_Type = ['txt']

@@ -11,11 +11,12 @@ import file9 from '../src/assets/files/Lossless compression.txt?url'
 import file10 from '../src/assets/files/Rosa_sulfurea_001.JPG?url'
 import file11 from '../src/assets/files/what.zip?url'
 import file12 from '../src/assets/files/ZIP (file format) - Wikipedia.pdf?url'
+import file13 from '../src/assets/icons/loading.svg?url'
 import { ref } from 'vue'
 
-// import { FileViewer } from '../dist/index.js'
-// import '../dist/style.css'
-import FileViewer from '../src/components/FileViewer.vue'
+import { FileViewer, readFileTypeFromBlob } from '../dist/index.js'
+import '../dist/style.css'
+// import FileViewer from '../src/components/FileViewer.vue'
 
 const fileList = [
   file1,
@@ -29,23 +30,30 @@ const fileList = [
   file9,
   file10,
   file11,
-  file12
+  file12,
+  file13
 ]
 
 const url = ref<string>('')
-const sourceData = ref()
+const resData = ref<Response>()
+const blobData = ref<Blob>()
+const type = ref<string>()
 
 const reloadFile = async () => {
+  clearFile()
   url.value = fileList[Math.floor(Math.random() * fileList.length)]
-  // fetch(url.value)
-  fetch(file5)
-    .then((res: Response) => {
-      sourceData.value = res
+  fetch(url.value)
+    // fetch(file13)
+    .then(async (res: Response) => {
+      const blob = await res.clone().blob()
+      // type.value = (await readFileTypeFromBlob(blob)).ext
+      blobData.value = blob
     })
 }
 
 const clearFile = () => {
-  sourceData.value = undefined
+  resData.value = undefined
+  blobData.value = undefined
 }
 </script>
 
@@ -56,7 +64,8 @@ const clearFile = () => {
       <button @click="clearFile">clear file</button>
     </div>
     <p>{{ url }}</p>
-    <FileViewer :res="sourceData" class="viewer-container" />
+    <FileViewer :blob="blobData" :res="resData" :type="type"
+                class="viewer-container" />
   </div>
 </template>
 

@@ -210,5 +210,12 @@ export const readFileTypeFromBlob = async (blob: Blob): Promise<{
     return { ext: 'shp', mime: 'application/x-esri-shape' }
   }
   
+  switch (blob.type) {
+    case 'text/plain':
+      return { ext: 'txt', mime: 'text/plain' }
+    case 'image/svg+xml':
+      return { ext: 'svg', mime: 'image/svg+xml' }
+  }
+  
   return { ext: 'unknown', mime: 'unknown' }
 }

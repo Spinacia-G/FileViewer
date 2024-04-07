@@ -23,7 +23,7 @@ import '@spinacia_/file-viewer/dist/style.css'
 
 import testUrl from '@/assets/files/testFile.pdf?url'
 
-const sourceData = ref()
+const sourceData = ref<Response>()
 
 const loadFile = async () => {
   fetch(testUrl).then((res: Response) => {
@@ -51,7 +51,51 @@ const loadFile = async () => {
 </style>
 ```
 
+or specify the type in props:
+
+```
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FileViewer, readFileTypeFromBlob } from '@spinacia_/file-viewer/dist'
+import '@spinacia_/file-viewer/dist/style.css'
+
+import testUrl from '@/assets/files/testFile.pdf?url'
+
+const blobData = ref<Blob>()
+const type = ref<string>()
+
+const loadFile = async () => {
+  fetch(testUrl).then(async (res: Response) => {
+    const blob = await res.clone().blob()
+    type.value = (await readFileTypeFromBlob(blob)).ext
+    blobData.value = blob
+  }
+}
+
+// const clearFile = () => { blobData.value = undefined }
+</script>
+
+<template>
+  <button @click="loadFile">Load file</button>
+  <FileViewer :blob="blobData" :type="type" />
+</template>
+```
+
+and all supported types can be checked in XXX_TYPE variables:
+
+```
+import { Image_Type, Pdf_Type, Text_Type, Excel_Type, Word_Type } from '@spinacia_/file-viewer/dist'
+```
+
 ![img.webp](docs%2Fimg.webp)
+
+## Props
+
+| name   | default     | type       | description                                                                                                   |
+|--------|-------------|------------|---------------------------------------------------------------------------------------------------------------|
+| `ref`  | `undefined` | `Response` | File source data.                                                                                             |
+| `blob` | `undefined` | `Blob`     | File source data.                                                                                             |
+| `type` | `undefined` | `string`   | If the file type is not passed in props, it type will be automatically detected by checking the magic number. |
 
 ## Reference
 
@@ -61,7 +105,7 @@ const loadFile = async () => {
 
 ## Supported file types
 
-- images: `.jpg` `.png` `.gif` `.bmp` `.webp`
+- images: `.jpg` `.png` `.gif` `.bmp` `.webp` `.svg`
 - word: `.docx`
 - pdf: `.pdf`
 - plain text: `.txt`

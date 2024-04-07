@@ -11,18 +11,16 @@ import {
   GetViewportParameters,
   RenderParameters
 } from 'pdfjs-dist/types/src/display/api'
+import { Image_Type, Pdf_Type, Text_Type, Word_Type } from './config'
 
 defineOptions({
   name: 'FileViewer'
 })
 
-const Image_Type = ['png', 'jpg', 'webp', 'bmp', 'gif', 'svg', 'ico']
-const Pdf_Type = ['pdf']
-const Word_Type = ['docx']
-// const Excel_Type = ['xlsx']
-const Text_Type = ['txt']
 const props = withDefaults(defineProps<{
   res: Response
+  blob: Blob
+  type?: string
 }>(), {})
 
 const showDialog = ref<boolean>(false)
@@ -45,7 +43,7 @@ watch(() => props.res, async (newVal: Response) => {
   } else {
     showDialog.value = true
     const blob = await newVal.blob()
-    type.value = (await readFileTypeFromBlob(blob)).ext
+    type.value = props.type || (await readFileTypeFromBlob(blob)).ext
     nextTick(async () => {
       if (Image_Type.includes(type.value)) {
         imageUrl.value = window.URL.createObjectURL(blob)
@@ -53,9 +51,30 @@ watch(() => props.res, async (newVal: Response) => {
         renderAsync(blob, viewerWordRef.value!)
       } else if (Pdf_Type.includes(type.value)) {
         loadPdfFile(window.URL.createObjectURL(blob))
-      } else if (type.value === 'unknown' && blob.type === 'text/plain') {
-        type.value = 'txt'
+      } else if (Text_Type.includes(type.value)) {
         textData.value = await blob.text()
+      }
+    })
+  }
+})
+
+watch(() => props.blob, async (newVal: Blob) => {
+  if (newVal === undefined) {
+    showDialog.value = false
+    resetStatus()
+    return
+  } else {
+    showDialog.value = true
+    type.value = props.type || (await readFileTypeFromBlob(newVal)).ext
+    nextTick(async () => {
+      if (Image_Type.includes(type.value)) {
+        imageUrl.value = window.URL.createObjectURL(newVal)
+      } else if (Word_Type.includes(type.value)) {
+        renderAsync(newVal, viewerWordRef.value!)
+      } else if (Pdf_Type.includes(type.value)) {
+        loadPdfFile(window.URL.createObjectURL(newVal))
+      } else if (Text_Type.includes(type.value)) {
+        textData.value = await newVal.text()
       }
     })
   }

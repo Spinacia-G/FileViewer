@@ -34,7 +34,6 @@
     "vite": "^5.2.8",
     "vite-plugin-dts": "^3.8.1",
     "vite-plugin-node-polyfills": "^0.21.0",
-    "vite-plugin-top-level-await": "^1.4.1",
     "vue-tsc": "^2.0.10"
   }
 }
