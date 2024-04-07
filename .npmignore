@@ -1,0 +1,14 @@
+.vscode
+.idea
+
+node_modules
+packages
+playground
+src
+
+.gitignore
+index.html
+pnpm-lock.yaml
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
