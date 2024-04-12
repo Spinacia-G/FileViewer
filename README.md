@@ -87,17 +87,15 @@ and all supported types can be checked in XXX_TYPE variables:
 import { Image_Type, Pdf_Type, Text_Type, Excel_Type, Word_Type } from '@spinacia_/file-viewer/dist'
 ```
 
-![img.webp](docs%2Fimg.webp)
-
 ## Props
 
-| name        | default     | type                                            | description                                                                                                   |
-|-------------|-------------|-------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| `ref`       | `undefined` | `Response`                                      | file source data                                                                                              |
-| `blob`      | `undefined` | `Blob`                                          | file source data                                                                                              |
-| `type`      | `undefined` | `string`                                        | if the file type is not passed in props, its type will be automatically detected by checking the magic number |
-| `changeImg` | `false`     | `boolean`                                       | if true, the image can be zoomed by `mousewheel` and dragged by `mousedown``mouseup`                          |
-| `fit`       | `contain`   | `contain` `cover` `'fill' ` `none` `scale-down` | indicate how the image should be resized to fit its container, same as object-fit                             |
+| name        | default     | type                                         | description                                                                                                   |
+|-------------|-------------|----------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| `ref`       | `undefined` | `Response`                                   | file source data                                                                                              |
+| `blob`      | `undefined` | `Blob`                                       | file source data                                                                                              |
+| `type`      | `undefined` | `string`                                     | if the file type is not passed in props, its type will be automatically detected by checking the magic number |
+| `changeImg` | `false`     | `boolean`                                    | if true, the image can be zoomed by `mousewheel` and dragged by `mousedown`/`mouseup`                         |
+| `fit`       | `contain`   | `contain`/`cover`/`fill`/`none`/`scale-down` | indicate how the image should be resized to fit its container, same as object-fit                             |
 
 ## Reference
 
