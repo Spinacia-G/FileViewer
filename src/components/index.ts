@@ -1,16 +1,17 @@
 import _FileViewer from './FileViewer.vue'
 import type { App, Plugin } from 'vue'
-import { readFileTypeFromBlob } from './file-type'
+import { readFileTypeFromBlob } from './detect-type'
 import {
   Image_Type,
   Pdf_Type,
   Text_Type,
   Excel_Type,
-  Word_Type
+  Word_Type,
+  Zip_Type
 } from './config'
 
 export { readFileTypeFromBlob }
-export { Image_Type, Pdf_Type, Text_Type, Excel_Type, Word_Type }
+export { Image_Type, Pdf_Type, Text_Type, Excel_Type, Word_Type, Zip_Type }
 
 type SFCWithInstall<T> = T & Plugin
 const withInstall = <T>(comp: T) => {

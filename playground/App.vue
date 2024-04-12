@@ -14,9 +14,9 @@ import file12 from '../src/assets/files/ZIP (file format) - Wikipedia.pdf?url'
 import file13 from '../src/assets/icons/loading.svg?url'
 import { ref } from 'vue'
 
-import { FileViewer, readFileTypeFromBlob } from '../dist/index.js'
-import '../dist/style.css'
-// import FileViewer from '../src/components/FileViewer.vue'
+// import { FileViewer, readFileTypeFromBlob } from '../dist/index.js'
+// import '../dist/style.css'
+import FileViewer from '../src/components/FileViewer.vue'
 
 const fileList = [
   file1,
@@ -43,7 +43,7 @@ const reloadFile = async () => {
   clearFile()
   url.value = fileList[Math.floor(Math.random() * fileList.length)]
   fetch(url.value)
-    // fetch(file13)
+    // fetch(file14)
     .then(async (res: Response) => {
       const blob = await res.clone().blob()
       // type.value = (await readFileTypeFromBlob(blob)).ext
@@ -64,8 +64,12 @@ const clearFile = () => {
       <button @click="clearFile">clear file</button>
     </div>
     <p>{{ url }}</p>
-    <FileViewer :blob="blobData" :res="resData" :type="type"
-                class="viewer-container" />
+    <FileViewer
+      :blob="blobData"
+      :res="resData"
+      :type="type"
+      class="viewer-container"
+    />
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, watch, nextTick, toRaw } from 'vue'
-import { readFileTypeFromBlob } from './file-type'
+import { readFileTypeFromBlob } from './detect-type'
 import { renderAsync } from 'docx-preview'
 import * as PDFJS from 'pdfjs-dist'
 import PDFWorker from 'pdfjs-dist/build/pdf.worker.min?url'
@@ -21,12 +21,22 @@ const props = withDefaults(defineProps<{
   res: Response
   blob: Blob
   type?: string
-}>(), {})
+  download?: boolean
+  changeImg?: boolean
+  fit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down'
+}>(), {
+  download: false,
+  changeImg: false,
+  fit: 'contain'
+})
 
 const showDialog = ref<boolean>(false)
 const type = ref<string>('')
 
 const imageUrl = ref<string>('')
+const imgScale = ref<number>(1)
+const imgTx = ref<number>(0)
+const imgTy = ref<number>(0)
 const pdfData = ref()
 const pdfDoc = ref<PDFDocumentProxy>()
 const pdfPages = ref<number>(0)
@@ -59,9 +69,9 @@ watch(() => props.res, async (newVal: Response) => {
 })
 
 watch(() => props.blob, async (newVal: Blob) => {
+  resetStatus()
   if (newVal === undefined) {
     showDialog.value = false
-    resetStatus()
     return
   } else {
     showDialog.value = true
@@ -136,22 +146,86 @@ const renderPdf = (pageIndex: number) => {
 
 const resetStatus = () => {
   imageUrl.value = ''
+  imgScale.value = 1
+  imgTx.value = 0
+  imgTy.value = 0
   pdfData.value = undefined
   pdfPages.value = 0
   textData.value = ''
 }
+
+/* tools - download file */
+const downloadFile = () => {
+}
+
+const viewerImgRef = ref<HTMLImageElement>()
+
+const maxScale = 7
+const minScale = 0.2
+const zoomRate = 1.2
+const handleMousewheel = (evt: WheelEvent) => {
+  const delta = evt.deltaY || evt.deltaX
+  if (delta < 0) {
+    if (imgScale.value < maxScale) {
+      imgScale.value = Number.parseFloat(
+        (imgScale.value * zoomRate).toFixed(3)
+      )
+    }
+  } else {
+    if (imgScale.value > minScale) {
+      imgScale.value = Number.parseFloat(
+        (imgScale.value / zoomRate).toFixed(3)
+      )
+    }
+  }
+}
+
+const handleMousedown = (evt: MouseEvent) => {
+  if (!viewerImgRef.value) return
+  
+  const originX = imgTx.value
+  const originY = imgTy.value
+  const startX = evt.pageX
+  const startY = evt.pageY
+  
+  const dragHandler = ((ev: MouseEvent) => {
+    imgTx.value = originX + (ev.pageX - startX) / imgScale.value
+    imgTy.value = originY + (ev.pageY - startY) / imgScale.value
+  })
+  document.addEventListener('mousemove', dragHandler)
+  document.addEventListener('mouseup', () => {
+    document.removeEventListener('mousemove', dragHandler)
+  })
+  
+  evt.preventDefault()
+}
 </script>
 
 <template>
-  <div v-if="showDialog">
+  <div v-if="showDialog" style="position: relative">
     <template v-if="Image_Type.includes(type)">
-      <img :src="imageUrl" alt="" class="viewer-box" />
+      <template v-if="props.changeImg">
+        <div class="s-viewer-img-container--change">
+          <img
+            ref="viewerImgRef"
+            :src="imageUrl"
+            :style="{transform:`scale(${imgScale}) translate(${imgTx}px, ${imgTy}px)`}"
+            alt=""
+            @mousedown="handleMousedown"
+            @mousewheel="handleMousewheel"
+          />
+        </div>
+      </template>
+      <template v-else>
+        <img :src="imageUrl" :style="`object-fit: ${props.fit}`" alt=""
+             class="s-viewer-img-container" />
+      </template>
     </template>
     <template v-else-if="Word_Type.includes(type)">
-      <div ref="viewerWordRef" class="viewer-box" />
+      <div ref="viewerWordRef" class="s-viewer-word-container" />
     </template>
     <template v-else-if="Pdf_Type.includes(type)">
-      <div ref="viewerPdfRef" class="pdf-box">
+      <div ref="viewerPdfRef" class="s-viewer-pdf-container">
         <canvas
           v-for="page in pdfPages"
           :id="`pdf-canvas-${page}`"
@@ -160,35 +234,53 @@ const resetStatus = () => {
       </div>
     </template>
     <template v-else-if="Text_Type.includes(type)">
-      <div class="text-box">
+      <div class="s-viewer-text-container">
         {{ textData }}
       </div>
     </template>
     <template v-else>
-      <div class="text-box">
-        Unsupported file type - {{ type }}
+      <div class="s-viewer-text-container">
+        <!-- Unsupported file type - {{ type }} -->
       </div>
     </template>
   </div>
 </template>
 
 <style scoped>
-.viewer-box {
+.s-viewer-img-container--change {
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  background-color: #fff;
+}
+
+.s-viewer-img-container {
   overflow: auto;
   width: 100%;
   height: 100%;
   margin: auto;
   background-color: #fff;
-  object-fit: contain;
 }
 
-.pdf-box {
+.s-viewer-word-container {
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  background-color: #fff;
+}
+
+.s-viewer-pdf-container {
   overflow-y: scroll;
   align-items: center;
   height: 100%;
 }
 
-.text-box {
+.s-viewer-text-container {
   overflow-y: auto;
   box-sizing: border-box;
   width: 100%;

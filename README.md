@@ -91,11 +91,13 @@ import { Image_Type, Pdf_Type, Text_Type, Excel_Type, Word_Type } from '@spinaci
 
 ## Props
 
-| name   | default     | type       | description                                                                                                   |
-|--------|-------------|------------|---------------------------------------------------------------------------------------------------------------|
-| `ref`  | `undefined` | `Response` | File source data.                                                                                             |
-| `blob` | `undefined` | `Blob`     | File source data.                                                                                             |
-| `type` | `undefined` | `string`   | If the file type is not passed in props, it type will be automatically detected by checking the magic number. |
+| name        | default     | type                                            | description                                                                                                   |
+|-------------|-------------|-------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| `ref`       | `undefined` | `Response`                                      | file source data                                                                                              |
+| `blob`      | `undefined` | `Blob`                                          | file source data                                                                                              |
+| `type`      | `undefined` | `string`                                        | if the file type is not passed in props, its type will be automatically detected by checking the magic number |
+| `changeImg` | `false`     | `boolean`                                       | if true, the image can be zoomed by `mousewheel` and dragged by `mousedown``mouseup`                          |
+| `fit`       | `contain`   | `contain` `cover` `'fill' ` `none` `scale-down` | indicate how the image should be resized to fit its container, same as object-fit                             |
 
 ## Reference
 
