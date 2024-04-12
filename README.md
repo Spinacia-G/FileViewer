@@ -94,7 +94,7 @@ import { Image_Type, Pdf_Type, Text_Type, Excel_Type, Word_Type } from '@spinaci
 | `ref`       | `undefined` | `Response`                                   | file source data                                                                                              |
 | `blob`      | `undefined` | `Blob`                                       | file source data                                                                                              |
 | `type`      | `undefined` | `string`                                     | if the file type is not passed in props, its type will be automatically detected by checking the magic number |
-| `changeImg` | `false`     | `boolean`                                    | if true, the image can be zoomed by `mousewheel` and dragged by `mousedown`/`mouseup`                         |
+| `changeImg` | `false`     | `boolean`                                    | if true, the image can be zoomed, dragged and rotated                                                         |
 | `fit`       | `contain`   | `contain`/`cover`/`fill`/`none`/`scale-down` | indicate how the image should be resized to fit its container, same as object-fit                             |
 
 ## Reference

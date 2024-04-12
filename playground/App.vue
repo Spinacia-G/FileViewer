@@ -43,7 +43,7 @@ const reloadFile = async () => {
   clearFile()
   url.value = fileList[Math.floor(Math.random() * fileList.length)]
   fetch(url.value)
-    // fetch(file14)
+    // fetch(file15)
     .then(async (res: Response) => {
       const blob = await res.clone().blob()
       // type.value = (await readFileTypeFromBlob(blob)).ext
@@ -68,6 +68,7 @@ const clearFile = () => {
       :blob="blobData"
       :res="resData"
       :type="type"
+      change-img
       class="viewer-container"
     />
   </div>
