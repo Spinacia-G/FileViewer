@@ -86,6 +86,7 @@ const clearFile = () => {
   width: 100vw;
   height: 100vh;
   padding: 20px;
+  background-color: #f6f5f5;
   inset: 0;
 }
 
@@ -104,6 +105,5 @@ p {
 .viewer-container {
   width: 100%;
   height: calc(100% - 100px);
-  box-shadow: 2px 2px 15px #9992, 2px 2px 10px #9994, 2px 2px 5px #9996;
 }
 </style>

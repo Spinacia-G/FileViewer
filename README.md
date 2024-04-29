@@ -43,10 +43,6 @@ const loadFile = async () => {
 .viewer-container {
   width: 60vw;
   height: 80vh;
-  box-shadow:
-    2px 2px 15px #9992,
-    2px 2px 10px #9994,
-    2px 2px 5px #9996;
 }
 </style>
 ```
@@ -89,13 +85,16 @@ import { Image_Type, Pdf_Type, Text_Type, Excel_Type, Word_Type } from '@spinaci
 
 ## Props
 
-| name        | default     | type                                         | description                                                                                                   |
-|-------------|-------------|----------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| `ref`       | `undefined` | `Response`                                   | file source data                                                                                              |
-| `blob`      | `undefined` | `Blob`                                       | file source data                                                                                              |
-| `type`      | `undefined` | `string`                                     | if the file type is not passed in props, its type will be automatically detected by checking the magic number |
-| `changeImg` | `false`     | `boolean`                                    | if true, the image can be zoomed, dragged and rotated                                                         |
-| `fit`       | `contain`   | `contain`/`cover`/`fill`/`none`/`scale-down` | indicate how the image should be resized to fit its container, same as object-fit                             |
+| name             | default     | type                                         | description                                                                                                   |
+|------------------|:------------|----------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| `ref`            | `undefined` | `Response`                                   | file source data                                                                                              |
+| `blob`           | `undefined` | `Blob`                                       | file source data                                                                                              |
+| `type`           | `undefined` | `string`                                     | if the file type is not passed in props, its type will be automatically detected by checking the magic number |
+| `changeImg`      | `false`     | `boolean`                                    | if true, the image can be zoomed, dragged and rotated                                                         |
+| `fit`            | `contain`   | `contain`/`cover`/`fill`/`none`/`scale-down` | indicate how the image should be resized to fit its container, same as object-fit                             |
+| `watermark`      | `undefined` | `string`                                     | label of watermark which will be shown in pdf                                                                 |
+| `watermarkColor` | `#6662`     | `string`                                     | color of watermark                                                                                            |
+| `watermarkSize`  | `200`       | `number`                                     | font size of watermark                                                                                        |
 
 ## Reference
 

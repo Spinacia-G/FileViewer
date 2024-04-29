@@ -29,6 +29,9 @@ interface PropsParam {
   download?: boolean
   changeImg?: boolean
   fit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down'
+  watermark?: string
+  watermarkColor?: string
+  watermarkSize?: number
 }
 
 interface ImgParamType {
@@ -154,12 +157,40 @@ const renderPdf = (pageIndex: number) => {
       annotationMode: PDFJS.AnnotationMode.ENABLE_FORMS,
       transform: dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : undefined
     }
-    page.render(renderContext)
+    const task = page.render(renderContext)
+    /* add watermark */
+    if (props.watermark) {
+      task.promise.then(() => {
+        const ctx = canvasDom.getContext('2d')
+        let pattern = ctx!.createPattern(getPattern(), 'repeat')
+        ctx!.rect(0, 0, canvasDom.width, canvasDom.height)
+        ctx!.rotate(-30 * Math.PI / 180)
+        ctx!.fillStyle = pattern!
+        ctx!.fill()
+      })
+    }
     /* render all pages */
     if (pageIndex < pdfPages.value) {
       renderPdf(pageIndex + 1)
     }
   })
+}
+
+/* get watermark pattern */
+const getPattern = () => {
+  const label = props.watermark ?? 'WaterMark'
+  const count = label.length
+  const size = props.watermarkSize ?? 200
+  let canvas = document.createElement('canvas')
+  canvas.height = size * 2
+  canvas.width = count * size * 1.1
+  let ctx = canvas.getContext('2d')
+  ctx!.font = `${size}px Bold Source Hans CN`
+  ctx!.fillStyle = props.watermarkColor ?? '#6662'
+  ctx!.textAlign = 'left'
+  ctx!.textBaseline = 'middle'
+  ctx!.fillText(label, 0, size)
+  return canvas
 }
 
 const resetStatus = () => {
@@ -368,7 +399,7 @@ const rotateImg = (delta: number) => {
   height: 100%;
   margin: auto;
   user-select: none;
-  background-color: #fff;
+  background-color: transparent;
 }
 
 .s-viewer-img-tool-bar {
@@ -412,7 +443,6 @@ const rotateImg = (delta: number) => {
   height: 20px;
   transition: all 0.2s ease;
   color: #fff;
-  /* filter: drop-shadow(0 0 2px #000); */
 }
 
 .s-viewer-img-tool-btn--zoom-out:hover > svg,
@@ -428,7 +458,7 @@ const rotateImg = (delta: number) => {
   width: 100%;
   height: 100%;
   margin: auto;
-  background-color: #fff;
+  background-color: transparent;
 }
 
 .s-viewer-word-container {
@@ -436,7 +466,7 @@ const rotateImg = (delta: number) => {
   width: 100%;
   height: 100%;
   margin: auto;
-  background-color: #fff;
+  background-color: transparent;
 }
 
 .s-viewer-pdf-container {
@@ -474,7 +504,7 @@ const rotateImg = (delta: number) => {
 <style>
 .docx-wrapper {
   padding: 0 !important;
-  background: #fff !important;
+  background: transparent !important;
   
   .docx {
     box-shadow: none !important;
