@@ -43,7 +43,6 @@ const reloadFile = async () => {
   clearFile()
   url.value = fileList[Math.floor(Math.random() * fileList.length)]
   fetch(url.value)
-    // fetch(file15)
     .then(async (res: Response) => {
       const blob = await res.clone().blob()
       // type.value = (await readFileTypeFromBlob(blob)).ext
@@ -55,21 +54,41 @@ const clearFile = () => {
   resData.value = undefined
   blobData.value = undefined
 }
+
+const uploadRef = ref<HTMLElement>()
+const handleUpload = () => {
+  uploadRef.value?.click()
+}
+
+const handleChange = async (e: Event) => {
+  const files = (e.target as HTMLInputElement).files
+  if (!files) return
+  clearFile()
+  blobData.value = files[0]
+}
 </script>
 
 <template>
   <div class="playground-container">
     <div class="btn-group">
-      <button @click="reloadFile">load file</button>
-      <button @click="clearFile">clear file</button>
+      <div class="handle-btn" @click="handleUpload">
+        upload file
+        <input ref="uploadRef" :multiple="false" type="file"
+               @change="handleChange"
+               @click.stop />
+      </div>
+      <div class="handle-btn" @click="reloadFile">load file (random)</div>
+      <div class="handle-btn" @click="clearFile">clear file</div>
     </div>
     <p>{{ url }}</p>
     <FileViewer
       :blob="blobData"
       :res="resData"
       :type="type"
+      :watermark-size="50"
       change-img
       class="viewer-container"
+      watermark="test"
     />
   </div>
 </template>
@@ -86,7 +105,7 @@ const clearFile = () => {
   width: 100vw;
   height: 100vh;
   padding: 20px;
-  background-color: #f6f5f5;
+  background-color: #f0f0f3;
   inset: 0;
 }
 
@@ -105,5 +124,26 @@ p {
 .viewer-container {
   width: 100%;
   height: calc(100% - 100px);
+}
+
+input {
+  display: none;
+}
+
+.handle-btn {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 6px 15px;
+  cursor: pointer;
+  transition: all 0.25s;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 1px 1px 5px #9992;
+  
+  &:hover {
+    color: #646cff;
+    border: 1px solid #646cff;
+  }
 }
 </style>

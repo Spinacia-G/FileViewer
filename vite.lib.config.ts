@@ -16,6 +16,27 @@ export default defineConfig({
     }),
     nodePolyfills({
       protocolImports: true
+    }),
+    dts({
+      rollupTypes: true
     })
-  ]
+  ],
+  build: {
+    target: 'esnext',
+    lib: {
+      entry: resolve(__dirname, './src/index.ts'),
+      name: '@spinacia_/file-viewer',
+      fileName: 'index'
+    },
+    rollupOptions: {
+      external: ['vue', 'pdfjs-dist'],
+      output: {
+        exports: 'named',
+        globals: {
+          'vue': 'Vue',
+          'pdfjs-dist': 'PDFJS'
+        }
+      }
+    }
+  }
 })
