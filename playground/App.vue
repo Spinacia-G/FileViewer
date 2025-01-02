@@ -14,9 +14,9 @@ import file12 from '../src/assets/files/ZIP (file format) - Wikipedia.pdf?url'
 import file13 from '../src/assets/icons/loading.svg?url'
 import { ref } from 'vue'
 
-// import { FileViewer, readFileTypeFromBlob } from '../dist/index.js'
+import { FileViewer, readFileTypeFromBlob } from '../dist/index.js'
 // import '../dist/style.css'
-import FileViewer from '../src/components/FileViewer.vue'
+// import FileViewer from '../src/components/FileViewer.vue'
 
 const fileList = [
   file1,
@@ -59,12 +59,26 @@ const uploadRef = ref<HTMLElement>()
 const handleUpload = () => {
   uploadRef.value?.click()
 }
-
 const handleChange = async (e: Event) => {
   const files = (e.target as HTMLInputElement).files
   if (!files) return
   clearFile()
   blobData.value = files[0]
+}
+
+const uploadMultiRef = ref<HTMLElement>()
+const handleUploadMulti = () => {
+  uploadMultiRef.value?.click()
+}
+const handleChangeMulti = async (e: Event) => {
+  const files = (e.target as HTMLInputElement).files
+  if (!files) return
+  for (let i = 0; i < fileList.length; i++) {
+    const file = files.item(i)
+    readFileTypeFromBlob(file).then(res => {
+      console.log(res, file.name)
+    })
+  }
 }
 </script>
 
@@ -75,6 +89,12 @@ const handleChange = async (e: Event) => {
         upload file
         <input ref="uploadRef" :multiple="false" type="file"
                @change="handleChange"
+               @click.stop />
+      </div>
+      <div class="handle-btn" @click="handleUploadMulti">
+        check multi-file
+        <input ref="uploadMultiRef" :multiple="true" type="file"
+               @change="handleChangeMulti"
                @click.stop />
       </div>
       <div class="handle-btn" @click="reloadFile">load file (random)</div>
@@ -140,7 +160,7 @@ input {
   border-radius: 8px;
   background-color: #f9f9f9;
   box-shadow: 1px 1px 5px #9992;
-  
+
   &:hover {
     color: #646cff;
     border: 1px solid #646cff;
