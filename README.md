@@ -90,17 +90,11 @@ import { Image_Type, Pdf_Type, Text_Type, Excel_Type, Word_Type } from '@spinaci
 | `ref`            | `undefined` | `Response`                                   | file source data                                                                                              |
 | `blob`           | `undefined` | `Blob`                                       | file source data                                                                                              |
 | `type`           | `undefined` | `string`                                     | if the file type is not passed in props, its type will be automatically detected by checking the magic number |
-| `changeImg`      | `false`     | `boolean`                                    | if true, the image can be zoomed, dragged and rotated                                                         |
+| `change`         | `false`     | `boolean`                                    | if true, the image can be zoomed, dragged and rotated, the pdf can be zoomed                                  |
 | `fit`            | `contain`   | `contain`/`cover`/`fill`/`none`/`scale-down` | indicate how the image should be resized to fit its container, same as object-fit                             |
 | `watermark`      | `undefined` | `string`                                     | label of watermark which will be shown in pdf                                                                 |
-| `watermarkColor` | `#6662`     | `string`                                     | color of watermark                                                                                            |
-| `watermarkSize`  | `200`       | `number`                                     | font size of watermark                                                                                        |
-
-## Reference
-
-- [type check](https://github.com/sindresorhus/file-type)
-- [docx viewer](https://www.npmjs.com/package/docx-preview)
-- [pdfjs-dist](https://github.com/mozilla/pdf.js)
+| `watermarkProps` | `{}`        | `Object`                                     | watermark options                                                                                             |
+| `pagination`     | `undefined` | `number`                                     | item count of each page in pdf pagination                                                                     |
 
 ## Supported file types
 

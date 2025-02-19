@@ -14,9 +14,10 @@ import file12 from '../src/assets/files/ZIP (file format) - Wikipedia.pdf?url'
 import file13 from '../src/assets/icons/loading.svg?url'
 import { ref } from 'vue'
 
-import { FileViewer, readFileTypeFromBlob } from '../dist/index.js'
+// import { FileViewer, readFileTypeFromBlob } from '../dist/index.js'
 // import '../dist/style.css'
-// import FileViewer from '../src/components/FileViewer.vue'
+import FileViewer from '../src/components/FileViewer.vue'
+import { readFileTypeFromBlob } from '../src'
 
 const fileList = [
   file1,
@@ -102,13 +103,14 @@ const handleChangeMulti = async (e: Event) => {
     </div>
     <p>{{ url }}</p>
     <FileViewer
+      class="viewer-container"
       :blob="blobData"
       :res="resData"
       :type="type"
       :watermark-size="50"
-      change-img
-      class="viewer-container"
+      change
       watermark="test"
+      :pagination="10"
     />
   </div>
 </template>

@@ -31,7 +31,7 @@ export default defineConfig({
       fileName: 'index'
     },
     rollupOptions: {
-      external: ['vue', 'pdfjs-dist'],
+      external: ['vue', 'pdfjs-dist', 'docx-preview'],
       output: {
         exports: 'named',
         globals: {
