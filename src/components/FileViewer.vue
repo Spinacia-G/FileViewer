@@ -30,6 +30,7 @@ interface PropsParam {
     fontSize: number
   }>
   pagination?: number
+  filename?: string
 }
 
 interface ImgParamType {
@@ -66,12 +67,14 @@ const textData = ref<string>('')
 const viewerWordRef = ref<HTMLElement>()
 const viewerPdfRef = ref<HTMLElement>()
 
+const blobData = ref<Blob>()
 watch(() => props.res, async (newVal: Response | undefined) => {
   resetStatus()
   if (newVal === undefined) {
     return
   } else {
     const blob = await newVal.blob()
+    blobData.value = blob
     type.value = props.type || (await readFileTypeFromBlob(blob)).ext
     nextTick(async () => {
       if (Image_Type.includes(type.value)) {
@@ -92,6 +95,7 @@ watch(() => props.blob, async (newVal: Blob | undefined) => {
   if (newVal === undefined) {
     return
   } else {
+    blobData.value = newVal
     type.value = props.type || (await readFileTypeFromBlob(newVal)).ext
     nextTick(async () => {
       if (Image_Type.includes(type.value)) {
@@ -192,7 +196,11 @@ const resetPdf = () => {
 }
 
 /* tools - download file */
-const downloadFile = () => {
+const downloadPdf = () => {
+  const a = document.createElement('a')
+  a.href = window.URL.createObjectURL(blobData.value!)
+  a.download = props.filename || 'unknown.pdf'
+  a.click()
 }
 
 const viewerImgRef = ref<HTMLImageElement>()
@@ -367,36 +375,38 @@ const rotateImg = (delta: number) => {
             :watermark-options="waterMarkOptions"
           />
         </div>
-        <div v-if="props.change" class="s-viewer-tool-bar">
-          <div class="s-viewer-tool-btn" @click="zoomOutPdf">
-            <svg height="32" viewBox="0 0 24 24" width="32"
-                 xmlns="http://www.w3.org/2000/svg">
-              <g fill="none" stroke="currentColor" stroke-width="1.5">
-                <circle cx="11.5" cy="11.5" r="9.5" />
-                <path d="M18.5 18.5L22 22M9 11.5h5" stroke-linecap="round" />
-              </g>
-            </svg>
-          </div>
-          <div class="s-viewer-tool-btn" @click="resetPdf">
-            <svg height="32" viewBox="0 0 24 24" width="32"
-                 xmlns="http://www.w3.org/2000/svg">
-              <path
-                  d="M12.079 2.25c-4.794 0-8.734 3.663-9.118 8.333H2a.75.75 0 0 0-.528 1.283l1.68 1.666a.75.75 0 0 0 1.056 0l1.68-1.666a.75.75 0 0 0-.528-1.283h-.893c.38-3.831 3.638-6.833 7.612-6.833a7.658 7.658 0 0 1 6.537 3.643a.75.75 0 1 0 1.277-.786A9.158 9.158 0 0 0 12.08 2.25m8.761 8.217a.75.75 0 0 0-1.054 0L18.1 12.133a.75.75 0 0 0 .527 1.284h.899c-.382 3.83-3.651 6.833-7.644 6.833a7.697 7.697 0 0 1-6.565-3.644a.75.75 0 1 0-1.277.788a9.197 9.197 0 0 0 7.842 4.356c4.808 0 8.765-3.66 9.15-8.333H22a.75.75 0 0 0 .527-1.284z"
-                  fill="currentColor" />
-            </svg>
-          </div>
-          <div class="s-viewer-tool-btn" @click="zoomInPdf">
-            <svg height="32" viewBox="0 0 24 24" width="32"
-                 xmlns="http://www.w3.org/2000/svg">
-              <g fill="none" stroke="currentColor" stroke-width="1.5">
-                <circle cx="11.5" cy="11.5" r="9.5" />
-                <path d="M18.5 18.5L22 22M9 11.5h2.5m0 0H14m-2.5 0V14m0-2.5V9"
-                      stroke-linecap="round" />
-              </g>
-            </svg>
-          </div>
-          <template v-if="props.pagination">
+        <div class="s-viewer-tool-bar">
+          <template v-if="props.change">
+            <div class="s-viewer-tool-btn" @click="zoomOutPdf">
+              <svg height="32" viewBox="0 0 24 24" width="32"
+                   xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="11.5" cy="11.5" r="9.5" />
+                  <path d="M18.5 18.5L22 22M9 11.5h5" stroke-linecap="round" />
+                </g>
+              </svg>
+            </div>
+            <div class="s-viewer-tool-btn" @click="resetPdf">
+              <svg height="32" viewBox="0 0 24 24" width="32"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M12.079 2.25c-4.794 0-8.734 3.663-9.118 8.333H2a.75.75 0 0 0-.528 1.283l1.68 1.666a.75.75 0 0 0 1.056 0l1.68-1.666a.75.75 0 0 0-.528-1.283h-.893c.38-3.831 3.638-6.833 7.612-6.833a7.658 7.658 0 0 1 6.537 3.643a.75.75 0 1 0 1.277-.786A9.158 9.158 0 0 0 12.08 2.25m8.761 8.217a.75.75 0 0 0-1.054 0L18.1 12.133a.75.75 0 0 0 .527 1.284h.899c-.382 3.83-3.651 6.833-7.644 6.833a7.697 7.697 0 0 1-6.565-3.644a.75.75 0 1 0-1.277.788a9.197 9.197 0 0 0 7.842 4.356c4.808 0 8.765-3.66 9.15-8.333H22a.75.75 0 0 0 .527-1.284z"
+                    fill="currentColor" />
+              </svg>
+            </div>
+            <div class="s-viewer-tool-btn" @click="zoomInPdf">
+              <svg height="32" viewBox="0 0 24 24" width="32"
+                   xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="11.5" cy="11.5" r="9.5" />
+                  <path d="M18.5 18.5L22 22M9 11.5h2.5m0 0H14m-2.5 0V14m0-2.5V9"
+                        stroke-linecap="round" />
+                </g>
+              </svg>
+            </div>
             <div class="s-viewer-tool-divider" />
+          </template>
+          <template v-if="props.pagination">
             <div class="s-viewer-tool-btn" @click="decreasePage">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
                 <g fill="none" stroke="currentColor" stroke-width="1.5">
@@ -414,7 +424,14 @@ const rotateImg = (delta: number) => {
                 </g>
               </svg>
             </div>
+            <div class="s-viewer-tool-divider" />
           </template>
+          <div class="s-viewer-tool-btn" @click="downloadPdf">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12.554 16.506a.75.75 0 0 1-1.107 0l-4-4.375a.75.75 0 0 1 1.107-1.012l2.696 2.95V3a.75.75 0 0 1 1.5 0v11.068l2.697-2.95a.75.75 0 1 1 1.107 1.013z"/>
+              <path fill="currentColor" d="M3.75 15a.75.75 0 0 0-1.5 0v.055c0 1.367 0 2.47.117 3.337c.12.9.38 1.658.981 2.26c.602.602 1.36.86 2.26.982c.867.116 1.97.116 3.337.116h6.11c1.367 0 2.47 0 3.337-.116c.9-.122 1.658-.38 2.26-.982s.86-1.36.982-2.26c.116-.867.116-1.97.116-3.337V15a.75.75 0 0 0-1.5 0c0 1.435-.002 2.436-.103 3.192c-.099.734-.28 1.122-.556 1.399c-.277.277-.665.457-1.4.556c-.755.101-1.756.103-3.191.103H9c-1.435 0-2.437-.002-3.192-.103c-.734-.099-1.122-.28-1.399-.556c-.277-.277-.457-.665-.556-1.4c-.101-.755-.103-1.756-.103-3.191"/>
+            </svg>
+          </div>
         </div>
       </div>
     </template>
