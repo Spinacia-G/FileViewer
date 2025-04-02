@@ -31,7 +31,10 @@ interface PropsParam {
   }>
   pagination?: number
   filename?: string
+  scrollColor?: string
+  scrollHoverColor?:string
 }
+
 
 interface ImgParamType {
   scale: number
@@ -48,7 +51,9 @@ defineOptions({
 const props = withDefaults(defineProps<PropsParam>(), {
   download: false,
   change: false,
-  fit: 'contain'
+  fit: 'contain',
+  scrollColor: 'rgb(150 150 150 / 15%)',
+  scrollHoverColor: 'rgb(150 150 150 / 30%)'
 })
 
 const type = ref<string>('')
@@ -571,7 +576,11 @@ const rotateImg = (delta: number) => {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 3px;
-  background: rgb(150 150 150 / 15%);
+  background: v-bind(scrollColor);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: v-bind(scrollHoverColor);
 }
 
 ::-webkit-scrollbar-corner {

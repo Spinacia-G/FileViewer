@@ -85,16 +85,20 @@ import { Image_Type, Pdf_Type, Text_Type, Excel_Type, Word_Type } from '@spinaci
 
 ## Props
 
-| name             | default     | type                                         | description                                                                                                   |
-|------------------|:------------|----------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| `ref`            | `undefined` | `Response`                                   | file source data                                                                                              |
-| `blob`           | `undefined` | `Blob`                                       | file source data                                                                                              |
-| `type`           | `undefined` | `string`                                     | if the file type is not passed in props, its type will be automatically detected by checking the magic number |
-| `change`         | `false`     | `boolean`                                    | if true, the image can be zoomed, dragged and rotated, the pdf can be zoomed                                  |
-| `fit`            | `contain`   | `contain`/`cover`/`fill`/`none`/`scale-down` | indicate how the image should be resized to fit its container, same as object-fit                             |
-| `watermark`      | `undefined` | `string`                                     | label of watermark which will be shown in pdf                                                                 |
-| `watermarkProps` | `{}`        | `Object`                                     | watermark options                                                                                             |
-| `pagination`     | `undefined` | `number`                                     | item count of each page in pdf pagination                                                                     |
+| name               | default                  | type                                         | description                                                                                                   |
+|--------------------|:-------------------------|----------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| `ref`              | `undefined`              | `Response`                                   | file source data                                                                                              |
+| `blob`             | `undefined`              | `Blob`                                       | file source data                                                                                              |
+| `type`             | `undefined`              | `string`                                     | if the file type is not passed in props, its type will be automatically detected by checking the magic number |
+| `change`           | `false`                  | `boolean`                                    | if true, the image can be zoomed, dragged and rotated, the pdf can be zoomed                                  |
+| `fit`              | `contain`                | `contain`/`cover`/`fill`/`none`/`scale-down` | indicate how the image should be resized to fit its container, same as object-fit                             |
+| `watermark`        | `undefined`              | `string`                                     | label of watermark which will be shown in pdf                                                                 |
+| `watermarkProps`   | `{}`                     | `Object`                                     | watermark options                                                                                             |
+| `pagination`       | `undefined`              | `number`                                     | item count of each page in pdf pagination                                                                     |
+| `download`         | `false`                  | `boolean`                                    | if true, the pdf file can be downloaded                                                                       |
+| `filename`         | `undefined`              | `string`                                     | filename of pdf file, which will be used in download function                                                 |
+| `scrollColor`      | `rgba(150,150,150,0.15)` | `string`                                     | color of -webkit-scrollbar-thumb                                                                              |
+| `scrollHoverColor` | `rgba(150,150,150,0.3)`  | `string`                                     | color of -webkit-scrollbar-thumb:hover                                                                        |
 
 ## Supported file types
 
