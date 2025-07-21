@@ -1,6 +1,6 @@
 {
   "name": "@spinacia_/file-viewer",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "type": "module",
   "author": "Spinacia <duskshadow@foxmail.com>",
   "scripts": {
@@ -21,7 +21,7 @@
     "vue3"
   ],
   "dependencies": {
-    "@tato30/vue-pdf": "^1.11.3",
+    "@tato30/vue-pdf": "^1.11.4",
     "docx-preview": "^0.3.0",
     "strtok3": "^7.0.0",
     "token-types": "^5.0.1"

@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@tato30/vue-pdf':
-        specifier: ^1.11.3
-        version: 1.11.3(vue@3.4.21(typescript@5.4.4))
+        specifier: ^1.11.4
+        version: 1.11.4(vue@3.4.21(typescript@5.4.4))
       docx-preview:
         specifier: ^0.3.0
         version: 0.3.0
@@ -424,8 +424,8 @@ packages:
   '@rushstack/ts-command-line@4.19.1':
     resolution: {integrity: sha512-J7H768dgcpG60d7skZ5uSSwyCZs/S2HrWP1Ds8d1qYAyaaeJmpmmLr9BVw97RjFzmQPOYnoXcKA4GkqDCkduQg==}
 
-  '@tato30/vue-pdf@1.11.3':
-    resolution: {integrity: sha512-YKEmy3NKAy+UsgYCu+GkKQ1VaIovjP/5lO5NmiKRjv9Jbl1LqJYGafZUt3QXp5Ijg0DN2gYDf8Jl949Lr9E7mA==}
+  '@tato30/vue-pdf@1.11.4':
+    resolution: {integrity: sha512-Z+Et+21q35pw34mIM8L7hbhzVw+q9T1nrPeXPIvha+a0a/X48P9Br73jGOgKdB1EWPkPeZtKzMCEe//TyFwAfw==}
     peerDependencies:
       vue: ^3.2.33
 
@@ -991,9 +991,9 @@ packages:
     resolution: {integrity: sha512-iuh7L6jA7JEGu2WxDwtQP1ddOpaJNC4KlDEFfdQajSGgGPNi4OyDc2R7QnbY2bR9QjBVGwgvTdNJZoE7RaxUMA==}
     engines: {node: '>=0.12'}
 
-  pdfjs-dist@4.9.124:
-    resolution: {integrity: sha512-yAoM7C+IYIG23dAZHE2KqtE5exEj067Ef6oblb+AHiqLwTJSQOMB+e8ftBA3pp1+6TyE4xeofoHcu9t7XaOE0g==}
-    engines: {node: '>=20'}
+  pdfjs-dist@5.3.31:
+    resolution: {integrity: sha512-EhPdIjNX0fcdwYQO+e3BAAJPXt+XI29TZWC7COhIXs/K0JHcUt1Gdz1ITpebTwVMFiLsukdUZ3u0oTO7jij+VA==}
+    engines: {node: '>=20.16.0 || >=22.3.0'}
 
   peek-readable@5.0.0:
     resolution: {integrity: sha512-YtCKvLUOvwtMGmrniQPdO7MwPjgkFBtFIrmfSbYmYuq3tKDV/mcfAhBth1+C3ru7uXIZasc/pHnb+YDYNkkj4A==}
@@ -1616,9 +1616,9 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@tato30/vue-pdf@1.11.3(vue@3.4.21(typescript@5.4.4))':
+  '@tato30/vue-pdf@1.11.4(vue@3.4.21(typescript@5.4.4))':
     dependencies:
-      pdfjs-dist: 4.9.124
+      pdfjs-dist: 5.3.31
       vue: 3.4.21(typescript@5.4.4)
 
   '@tokenizer/token@0.3.0': {}
@@ -2313,7 +2313,7 @@ snapshots:
       safe-buffer: 5.2.1
       sha.js: 2.4.11
 
-  pdfjs-dist@4.9.124:
+  pdfjs-dist@5.3.31:
     optionalDependencies:
       '@napi-rs/canvas': 0.1.67
 
