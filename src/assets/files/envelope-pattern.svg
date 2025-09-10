@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="envelopeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF8DC;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F5F5DC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F0E68C;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="sealGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#DC143C;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#B22222;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B0000;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="stampGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4169E1;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0000CD;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000080;stop-opacity:1" />
+    </linearGradient>
+    <pattern id="paperTexture" patternUnits="userSpaceOnUse" width="20" height="20">
+      <rect width="20" height="20" fill="#FFF8DC"/>
+      <circle cx="5" cy="5" r="0.5" fill="#F0E68C" opacity="0.3"/>
+      <circle cx="15" cy="15" r="0.5" fill="#F0E68C" opacity="0.3"/>
+      <circle cx="10" cy="8" r="0.3" fill="#F0E68C" opacity="0.2"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#F0F8FF"/>
+  
+  <!-- Main Envelope -->
+  <g transform="translate(200,150)">
+    <!-- Envelope body -->
+    <rect x="-80" y="-40" width="160" height="80" fill="url(#envelopeGradient)" 
+          stroke="#D2B48C" stroke-width="2"/>
+    
+    <!-- Envelope back flap (top) -->
+    <path d="M -80,-40 L 0,-80 L 80,-40 Z" fill="url(#envelopeGradient)" 
+          stroke="#D2B48C" stroke-width="2"/>
+    
+    <!-- Address lines -->
+    <line x1="-60" y1="-20" x2="20" y2="-20" stroke="#8B4513" stroke-width="1.5"/>
+    <line x1="-60" y1="-5" x2="40" y2="-5" stroke="#8B4513" stroke-width="1.5"/>
+    <line x1="-60" y1="10" x2="30" y2="10" stroke="#8B4513" stroke-width="1.5"/>
+    <line x1="-60" y1="25" x2="15" y2="25" stroke="#8B4513" stroke-width="1.5"/>
+    
+    <!-- Stamp -->
+    <rect x="45" y="-35" width="25" height="20" fill="url(#stampGradient)" 
+          stroke="#000080" stroke-width="1"/>
+    <!-- Stamp perforations -->
+    <rect x="45" y="-35" width="25" height="20" fill="none" 
+          stroke="#000080" stroke-width="0.5" stroke-dasharray="2,2"/>
+    <!-- Stamp design -->
+    <circle cx="57.5" cy="-25" r="6" fill="#FFFFFF" opacity="0.8"/>
+    <text x="57.5" y="-22" text-anchor="middle" font-family="serif" font-size="8" fill="#000080">20¢</text>
+    
+    <!-- Wax seal -->
+    <circle cx="60" cy="20" r="12" fill="url(#sealGradient)"/>
+    <circle cx="60" cy="20" r="8" fill="#8B0000"/>
+    <text x="60" y="24" text-anchor="middle" font-family="serif" font-size="10" 
+          font-weight="bold" fill="#FFD700">S</text>
+  </g>
+  
+  <!-- Small Envelope -->
+  <g transform="translate(100,80) scale(0.6)">
+    <rect x="-60" y="-30" width="120" height="60" fill="url(#envelopeGradient)" 
+          stroke="#D2B48C" stroke-width="2"/>
+    <path d="M -60,-30 L 0,-60 L 60,-30 Z" fill="url(#envelopeGradient)" 
+          stroke="#D2B48C" stroke-width="2"/>
+    <!-- Small address lines -->
+    <line x1="-45" y1="-15" x2="15" y2="-15" stroke="#8B4513" stroke-width="1"/>
+    <line x1="-45" y1="0" x2="25" y2="0" stroke="#8B4513" stroke-width="1"/>
+    <line x1="-45" y1="15" x2="10" y2="15" stroke="#8B4513" stroke-width="1"/>
+  </g>
+  
+  <!-- Love Letter -->
+  <g transform="translate(320,200) scale(0.7)">
+    <rect x="-50" y="-35" width="100" height="70" fill="url(#paperTexture)" 
+          stroke="#DEB887" stroke-width="1.5"/>
+    <path d="M -50,-35 L 0,-65 L 50,-35 Z" fill="#FFB6C1" 
+          stroke="#DEB887" stroke-width="1.5"/>
+    <!-- Heart seal -->
+    <path d="M 0,-50 Q -8,-58 -15,-50 Q -15,-42 0,-35 Q 15,-42 15,-50 Q 8,-58 0,-50" 
+          fill="#FF69B4"/>
+    <!-- Love letter content -->
+    <line x1="-35" y1="-15" x2="35" y2="-15" stroke="#8B4513" stroke-width="1"/>
+    <line x1="-35" y1="0" x2="35" y2="0" stroke="#8B4513" stroke-width="1"/>
+    <line x1="-35" y1="15" x2="20" y2="15" stroke="#8B4513" stroke-width="1"/>
+    <text x="0" y="30" text-anchor="middle" font-family="cursive" font-size="8" fill="#8B0000">♥</text>
+  </g>
+  
+  <!-- Postcard -->
+  <g transform="translate(80,220)">
+    <rect x="-40" y="-25" width="80" height="50" fill="url(#envelopeGradient)" 
+          stroke="#D2B48C" stroke-width="1.5"/>
+    <!-- Postcard image area -->
+    <rect x="-35" y="-20" width="35" height="20" fill="#87CEEB" stroke="#4682B4" stroke-width="1"/>
+    <text x="-17.5" y="-7" text-anchor="middle" font-family="serif" font-size="6" fill="#FFFFFF">VIEW</text>
+    
+    <!-- Postcard message area -->
+    <line x1="5" y1="-15" x2="30" y2="-15" stroke="#8B4513" stroke-width="0.8"/>
+    <line x1="5" y1="-5" x2="35" y2="-5" stroke="#8B4513" stroke-width="0.8"/>
+    <line x1="5" y1="5" x2="25" y2="5" stroke="#8B4513" stroke-width="0.8"/>
+    <line x1="5" y1="15" x2="30" y2="15" stroke="#8B4513" stroke-width="0.8"/>
+    
+    <!-- Postcard stamp -->
+    <rect x="25" y="-20" width="12" height="10" fill="url(#stampGradient)" 
+          stroke="#000080" stroke-width="0.8"/>
+  </g>
+  
+  <!-- Decorative elements -->
+  <g transform="translate(50,120)">
+    <path d="M 0,0 Q 5,-5 10,0 T 20,0" stroke="#D2B48C" stroke-width="2" fill="none"/>
+    <circle cx="15" cy="-2" r="2" fill="#FFD700"/>
+  </g>
+  
+  <g transform="translate(330,80)">
+    <path d="M 0,0 Q -5,-3 -10,0 T -20,0" stroke="#D2B48C" stroke-width="2" fill="none"/>
+    <circle cx="-15" cy="-1" r="1.5" fill="#FFB6C1"/>
+  </g>
+  
+  <!-- Floating letters/papers -->
+  <g transform="translate(150,50) rotate(15)">
+    <rect x="-8" y="-6" width="16" height="12" fill="url(#paperTexture)" 
+          stroke="#DEB887" stroke-width="1" opacity="0.8"/>
+    <line x1="-6" y1="-2" x2="6" y2="-2" stroke="#8B4513" stroke-width="0.5"/>
+    <line x1="-6" y1="2" x2="4" y2="2" stroke="#8B4513" stroke-width="0.5"/>
+  </g>
+  
+  <g transform="translate(280,250) rotate(-20)">
+    <rect x="-6" y="-4" width="12" height="8" fill="url(#paperTexture)" 
+          stroke="#DEB887" stroke-width="1" opacity="0.7"/>
+    <line x1="-4" y1="-1" x2="4" y2="-1" stroke="#8B4513" stroke-width="0.4"/>
+    <line x1="-4" y1="1" x2="3" y2="1" stroke="#8B4513" stroke-width="0.4"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="200" y="30" text-anchor="middle" font-family="serif" font-size="18" 
+        font-weight="bold" fill="#8B4513">Correspondence Collection</text>
+</svg>
