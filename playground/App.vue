@@ -12,6 +12,11 @@ import file10 from '../src/assets/files/Rosa_sulfurea_001.JPG?url'
 import file11 from '../src/assets/files/what.zip?url'
 import file12 from '../src/assets/files/ZIP (file format) - Wikipedia.pdf?url'
 import file13 from '../src/assets/icons/loading.svg?url'
+import file14 from '../src/assets/files/floral-pattern.svg?url'
+import file15 from '../src/assets/files/teacup-pattern.svg?url'
+import file16 from '../src/assets/files/rose-pattern.svg?url'
+import file17 from '../src/assets/files/envelope-pattern.svg?url'
+import file18 from '../src/assets/files/text-elements-pattern.svg?url'
 import { ref } from 'vue'
 
 import { FileViewer, readFileTypeFromBlob } from '../dist/index.js'
@@ -31,7 +36,12 @@ const fileList = [
   file10,
   file11,
   file12,
-  file13
+  file13,
+  file14,
+  file15,
+  file16,
+  file17,
+  file18
 ]
 
 const url = ref<string>('')
